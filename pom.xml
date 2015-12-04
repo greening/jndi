@@ -1,77 +1,65 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
     http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 
- <groupId>jnbt</groupId>
-  <artifactId>jnbt</artifactId>
-  <version>1.1</version>
-  <packaging>jar</packaging>
-  <name>JNBT</name>
-  <url>http://somecompany.com</url>
+	<groupId>org.jnbt</groupId>
+	<artifactId>jnbt</artifactId>
+	<version>1.1</version>
+	<packaging>jar</packaging>
+	<name>JNBT</name>
+	<url>http://somecompany.com</url>
 
-<properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-</properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	</properties>
 
+	<scm>
+		<connection>scm:svn:http://svn.code.sf.net/p/jnbt/code</connection>
+		<developerConnection>scm:svn:http://svn.code.sf.net/p/jnbt/code</developerConnection>
+		<url>https://sourceforge.net/p/jnbt/code/HEAD/tree/</url>
+	</scm>
+	<build>
+		<sourceDirectory>target/checkout/src</sourceDirectory>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-scm-plugin</artifactId>
+				<version>1.9.4</version>
+				<configuration>
+					<goals>install</goals>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>checkout</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>generate-sources</phase>
+						<configuration>
+							<target>
+								<move file="target/checkout/src/org" tofile="target/checkout/src/main/java/org" />
 
-  <distributionManagement>
-                <repository>
-                        <id>local-maven-repository</id>
-                        <url>file://.m2/repository</url>
-                </repository>
-        </distributionManagement>
+								<!-- Place any Ant task here. You can add anything you can add between 
+									<target> and </target> in a build.xml. -->
 
-<scm>
-    <connection>scm:svn:http://svn.code.sf.net/p/jnbt/code</connection>
-    <developerConnection>scm:svn:http://svn.code.sf.net/p/jnbt/code</developerConnection>
-    <url>https://sourceforge.net/p/jnbt/code/HEAD/tree/</url>
-  </scm>
-  <build>
-    <sourceDirectory>target/checkout/src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-scm-plugin</artifactId>
-        <version>1.9.4</version>
-        <configuration>
-          <goals>install</goals>
-        </configuration>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-	    <goals>
-	      <goal>checkout</goal>
-	    </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <artifactId>maven-antrun-plugin</artifactId>
-        <version>1.8</version>
-        <executions>
-          <execution>
-            <phase>generate-sources</phase>
-            <configuration>
-              <target>
-		<move file="target/checkout/src/org" tofile="target/checkout/src/main/java/org" />
-
-                <!--
-                  Place any Ant task here. You can add anything
-                  you can add between <target> and </target> in a
-                  build.xml.
-                -->
-
-              </target>
-            </configuration>
-            <goals>
-              <goal>run</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
